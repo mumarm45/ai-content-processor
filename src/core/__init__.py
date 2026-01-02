@@ -1,6 +1,6 @@
 """Core functionality for AI Content Processor."""
 
-from core.llm_client import LLMClient, create_anthropic_llm
+from core.llm_client import LLMClient
 from core.prompt_templates import (
     FinancialPromptTemplate,
     MeetingPromptTemplate,
@@ -9,7 +9,6 @@ from core.prompt_templates import (
 
 __all__ = [
     "LLMClient",
-    "create_anthropic_llm",
     "FinancialPromptTemplate",
     "MeetingPromptTemplate",
     "ImagePromptTemplate",

@@ -63,10 +63,8 @@ class DocumentService:
         logger.info("🤖 Generating meeting minutes and tasks...")
         
         try:
-            # Get prompt template
             prompt = MeetingPromptTemplate.create_meeting_minutes_prompt()
             
-            # Create chain
             chain = (
                 {"transcript": RunnablePassthrough()}
                 | prompt
@@ -74,7 +72,6 @@ class DocumentService:
                 | StrOutputParser()
             )
             
-            # Generate
             result = chain.invoke(transcript)
             
             logger.info(f"✅ Generated {len(result)} characters of meeting notes")
@@ -108,16 +105,13 @@ class DocumentService:
         logger.info("🤖 Formatting financial transcript...")
         
         try:
-            # Get prompt
             prompt = FinancialPromptTemplate.create_financial_formatting_prompt(
                 transcript
             )
             
-            # Format and invoke
             formatted_prompt = prompt.format(transcript=transcript)
             response = self.llm_client.invoke(formatted_prompt)
             
-            # Extract content
             if hasattr(response, 'content'):
                 result = response.content
             else:
@@ -182,7 +176,6 @@ if __name__ == "__main__":
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
     
-    # Example usage
     sample_transcript = """
     Team meeting on January 2nd, 2026.
     

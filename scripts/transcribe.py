@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 CLI tool for audio transcription.
 
@@ -52,14 +51,12 @@ def main():
     
     args = parser.parse_args()
     
-    # Setup logging
     level = logging.DEBUG if args.verbose else logging.INFO
     logging.basicConfig(
         level=level,
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
     
-    # Validate file
     audio_path = Path(args.audio_file)
     if not audio_path.exists():
         print(f"❌ Error: File not found: {audio_path}")
@@ -74,7 +71,6 @@ def main():
     print(f"{'='*60}\n")
     
     try:
-        # Import and transcribe
         from services import AudioService
         
         service = AudioService(model_name=args.model)
@@ -82,14 +78,12 @@ def main():
         language = None if args.language == "auto" else args.language
         result = service.transcribe(audio_path, language=language)
         
-        # Print result
         print(f"\n{'='*60}")
         print(f"Language: {result.language} ({result.language_probability:.2%} confidence)")
         print(f"{'='*60}")
         print(result.text)
         print(f"{'='*60}\n")
         
-        # Save to file if requested
         if args.output:
             output_path = Path(args.output)
             output_path.write_text(result.text)

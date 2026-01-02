@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 CLI tool for image analysis.
 
@@ -51,20 +50,17 @@ def main():
     
     args = parser.parse_args()
     
-    # Setup logging
     level = logging.DEBUG if args.verbose else logging.INFO
     logging.basicConfig(
         level=level,
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
     
-    # Validate file
     image_path = Path(args.image_file)
     if not image_path.exists():
         print(f"❌ Error: File not found: {image_path}")
         sys.exit(1)
     
-    # Determine prompt
     if args.extract_text:
         prompt = "Extract all text from this image. Preserve formatting."
     else:
@@ -79,7 +75,6 @@ def main():
     print(f"{'='*60}\n")
     
     try:
-        # Import and analyze
         from services import ImageService
         
         service = ImageService()
@@ -89,14 +84,12 @@ def main():
         else:
             result = service.analyze(image_path, prompt=prompt)
         
-        # Print result
         print(f"\n{'='*60}")
         print("Analysis Result:")
         print(f"{'='*60}")
         print(result)
         print(f"{'='*60}\n")
         
-        # Save to file if requested
         if args.output:
             output_path = Path(args.output)
             output_path.write_text(result)

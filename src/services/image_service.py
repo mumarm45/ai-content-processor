@@ -109,11 +109,9 @@ class ImageService:
         """
         image_path = Path(image_path)
         
-        # Validate file exists
         if not image_path.exists():
             raise ImageServiceError(f"Image file not found: {image_path}")
         
-        # Validate format
         if image_path.suffix.lower() not in self.SUPPORTED_FORMATS:
             raise ImageServiceError(
                 f"Unsupported image format: {image_path.suffix}. "
@@ -123,25 +121,21 @@ class ImageService:
         logger.info(f"📸 Analyzing image: {image_path.name}")
         
         try:
-            # Get image info
+            
             info = self.get_image_info(image_path)
             logger.debug(f"Image info: {info['format']} {info['width']}x{info['height']}")
             
-            # Encode image
             encoded_image = self.encode_image(image_path)
             
-            # Set default prompt if not provided
             if not prompt:
                 prompt = "Describe what you see in this image. Extract any text present."
             
-            # Determine media type
             media_type = f"image/{info['format'].lower()}"
             if media_type == "image/jpeg":
                 media_type = "image/jpeg"
             elif media_type not in ["image/png", "image/jpeg", "image/gif", "image/webp"]:
                 media_type = "image/png"  # Default fallback
             
-            # Create messages
             messages = ImagePromptTemplate.create_image_analysis_messages(
                 encoded_image,
                 prompt,
@@ -150,10 +144,8 @@ class ImageService:
             
             logger.info("🤖 Analyzing with Claude Vision...")
             
-            # Get response
             response = self.llm_client.invoke(messages)
             
-            # Extract content
             if hasattr(response, 'content'):
                 result = response.content
             else:

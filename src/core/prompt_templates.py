@@ -154,49 +154,6 @@ class ImagePromptTemplate:
         )
 
 
-# Backward compatible function names
-def story_prompt(transcript: str) -> PromptTemplate:
-    """
-    Legacy function for financial formatting prompt.
-    
-    Deprecated: Use FinancialPromptTemplate.create_financial_formatting_prompt()
-    """
-    return FinancialPromptTemplate.create_financial_formatting_prompt(transcript)
-
-
-def create_prompt(image_description: str, user_query: str) -> PromptTemplate:
-    """
-    Legacy function for image analysis prompt.
-    
-    Deprecated: Use ImagePromptTemplate methods instead
-    """
-    template = f"""
-    Analyze the following image and answer the question.
-    
-    Image Description: {image_description}
-    User Query: {user_query}
-    
-    Please provide a detailed response that:
-    1. Describes the image content
-    2. Answers the specific question
-    3. Provides relevant context
-    """
-    
-    return PromptTemplate(
-        input_variables=["image_description", "user_query"],
-        template=template
-    )
-
-
-def send_multimodal_query(encoded_image: str, prompt: Optional[str] = None) -> list:
-    """
-    Legacy function for multimodal queries.
-    
-    Deprecated: Use ImagePromptTemplate.create_image_analysis_messages()
-    """
-    return ImagePromptTemplate.create_image_analysis_messages(encoded_image, prompt)
-
-
 if __name__ == "__main__":
     # Example usage
     print("Financial Prompt Template:")

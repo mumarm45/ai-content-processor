@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 CLI tool for processing meeting recordings.
 
@@ -52,14 +51,12 @@ def main():
     
     args = parser.parse_args()
     
-    # Setup logging
     level = logging.DEBUG if args.verbose else logging.INFO
     logging.basicConfig(
         level=level,
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
     
-    # Validate file
     audio_path = Path(args.audio_file)
     if not audio_path.exists():
         print(f"❌ Error: File not found: {audio_path}")
@@ -73,7 +70,6 @@ def main():
     print(f"{'='*60}\n")
     
     try:
-        # Step 1: Transcribe
         print("🎤 Step 1: Transcribing audio...")
         from services import AudioService
         
@@ -83,27 +79,23 @@ def main():
         print(f"\n✅ Transcription complete ({len(transcription.text)} characters)")
         print(f"Language: {transcription.language} ({transcription.language_probability:.2%})\n")
         
-        # Save transcript if requested
         if args.save_transcript:
             transcript_path = Path(args.save_transcript)
             transcript_path.write_text(transcription.text)
             print(f"💾 Transcript saved to: {transcript_path}\n")
         
-        # Step 2: Generate minutes
         print("📝 Step 2: Generating meeting minutes...\n")
         from services import DocumentService
         
         doc_service = DocumentService()
         minutes = doc_service.generate_meeting_minutes(transcription.text)
         
-        # Print result
         print(f"\n{'='*60}")
         print("Meeting Minutes:")
         print(f"{'='*60}")
         print(minutes)
         print(f"{'='*60}\n")
         
-        # Save to file if requested
         if args.output:
             output_path = Path(args.output)
             output_path.write_text(minutes)

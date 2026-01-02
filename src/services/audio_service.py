@@ -11,7 +11,6 @@ from typing import Optional
 from dataclasses import dataclass
 import logging
 
-# Fix OpenMP conflict before importing torch-based libraries
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 from config import settings
@@ -62,7 +61,7 @@ class AudioService:
         self.model_name = model_name or settings.WHISPER_MODEL
         self.device = device or settings.WHISPER_DEVICE
         self.compute_type = compute_type
-        self._model = None  # Lazy loading
+        self._model = None 
         
         logger.info(
             f"Initialized AudioService with model={self.model_name}, "
@@ -107,27 +106,24 @@ class AudioService:
         """
         audio_path = Path(audio_path)
         
-        # Validate file exists
         if not audio_path.exists():
             raise AudioServiceError(f"Audio file not found: {audio_path}")
         
         logger.info(f"🎤 Transcribing: {audio_path.name}")
         
         try:
-            # Perform transcription
             segments_iter, info = self.model.transcribe(
                 str(audio_path),
                 beam_size=beam_size,
                 language=language
             )
             
-            # Log detection info
             logger.info(
                 f"📝 Detected language: {info.language} "
                 f"(probability: {info.language_probability:.2%})"
             )
             
-            # Process segments
+            
             full_text = []
             
             for segment in segments_iter:

@@ -113,37 +113,7 @@ class LLMClient:
         logger.info(f"Max tokens updated to {max_tokens}")
 
 
-# Convenience function for backward compatibility
-def create_anthropic_llm(
-    temperature: Optional[float] = None,
-    max_tokens: Optional[int] = None,
-    model: Optional[str] = None
-) -> ChatAnthropic:
-    """
-    Create a Claude LLM client (backward compatible function).
-    
-    Args:
-        temperature: Temperature for generation
-        max_tokens: Maximum tokens
-        model: Model name
-        
-    Returns:
-        ChatAnthropic client
-        
-    Example:
-        >>> llm = create_anthropic_llm(temperature=0.5)
-        >>> response = llm.invoke("Hello!")
-    """
-    client = LLMClient(
-        model=model,
-        temperature=temperature,
-        max_tokens=max_tokens
-    )
-    return client.client
-
-
 if __name__ == "__main__":
-    # Example usage
     logging.basicConfig(level=logging.INFO)
     
     try:
