@@ -211,4 +211,4 @@ __marimo__/
 *.txt
 
 # ChromaDB persistent storage
-chroma_db/
+data
