@@ -25,6 +25,11 @@ A powerful AI-powered application that processes audio, images, and text using s
 - AI-powered text analysis and summarization
 - Professional formatting with key points, action items, and decisions
 
+### 📊 Nutrition Analysis
+- Analyze food items in images
+- Provide detailed nutritional information
+- Calorie counting and macronutrient breakdown
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -102,10 +107,12 @@ python src/web/app.py
 
 Then open your browser to `http://localhost:5500`
 
-The interface provides three main features:
+The interface provides four main features:
 - **Audio Transcription**: Upload audio files and get instant transcriptions
 - **Image Analysis**: Upload images for text extraction and analysis
 - **Meeting Minutes**: Paste transcripts to generate structured minutes
+- **Nutrition Analysis**: Upload food images to get nutritional information
+
 
 ### First Run
 
@@ -118,7 +125,7 @@ ai-content-processor/
 ├── src/
 │   ├── config/          # Configuration and settings
 │   ├── core/            # Core business logic
-│   ├── services/        # AI services (Audio, Image, Document)
+│   ├── services/        # AI services (Audio, Image, Document, Nutrition)
 │   └── web/             # Gradio web interface
 ├── scripts/             # Utility scripts
 ├── tests/               # Test files
