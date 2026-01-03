@@ -236,3 +236,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 **Made with ❤️ using Claude, Whisper, and Gradio**
+
+
+
+
+Feel free to explore the code, experiment with different models, and contribute to make this project even better!
+
+Happy coding and learning! 🚀

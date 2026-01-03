@@ -49,7 +49,6 @@ def transcribe_audio(audio_file_path):
         logger.error(error_msg, exc_info=True)
         return error_msg
 
-
 def analyze_image(image_file, prompt):
     """
     Analyze image and extract information.
@@ -77,6 +76,37 @@ def analyze_image(image_file, prompt):
         
     except Exception as e:
         error_msg = f"❌ Error during image analysis: {str(e)}"
+        logger.error(error_msg, exc_info=True)
+        return error_msg
+
+
+def analyze_nutrition(image_file, prompt):
+    """
+    Analyze nutrition from food image.
+    
+    Args:
+        image_file: Path to uploaded image file
+        prompt: Optional analysis prompt
+        
+    Returns:
+        Analysis result or error message
+    """
+    if image_file is None:
+        return "⚠️ Please upload an image file."
+    
+    try:
+        # Lazy import
+        from services import NutritionService
+        
+        logger.info(f"🥗 Processing nutrition image: {image_file}")
+        
+        service = NutritionService()
+        result = service.analyze_food_items(image_file, prompt=prompt if prompt else None)
+        
+        return result
+        
+    except Exception as e:
+        error_msg = f"❌ Error during nutrition analysis: {str(e)}"
         logger.error(error_msg, exc_info=True)
         return error_msg
 
@@ -253,7 +283,46 @@ def create_interface():
                     inputs=transcript_input,
                     outputs=minutes_output
                 )
-        
+             
+            # Tab 4: Nutrition Analysis
+            with gr.Tab("🥗 Nutrition Analysis"):
+                gr.Markdown(
+                    """
+                    ### Analyze food items and get nutritional information
+                    Upload an image of food to get detailed nutritional analysis
+                    """
+                )
+                
+                with gr.Row():
+                    with gr.Column():
+                        image_input = gr.Image(
+                            type="filepath",
+                            label="Upload Food Image"
+                        )
+                        nutrition_button = gr.Button(
+                            "🥗 Analyze Nutrition",
+                            variant="primary",
+                            size="lg"
+                        )
+                    
+                    with gr.Column():
+                        audio_output = gr.Textbox(
+                            label="Nutrition Analysis",
+                            lines=15,
+                            placeholder="Analysis will appear here..."
+                        )
+                
+                gr.Markdown(
+                    """
+                    💡 **Note:** First analysis may take longer as the model loads
+                    """
+                )
+                
+                nutrition_button.click(
+                    fn=analyze_nutrition,
+                    inputs=image_input,
+                    outputs=audio_output
+                ) 
         gr.Markdown(
             """
             ---

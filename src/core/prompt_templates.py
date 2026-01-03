@@ -154,6 +154,64 @@ class ImagePromptTemplate:
         )
 
 
+class NutritionistPromptTemplate:
+    """Prompt templates for nutritionist-related tasks."""
+    
+    @staticmethod
+    def create_nutrition_analysis_prompt_assisstent() -> str:
+        """
+        Create a prompt for nutrition analysis.
+        
+        Returns:
+            Nutrition analysis prompt
+        """
+        return """
+                You are an expert nutritionist. Your task is to analyze the food items displayed in the image and provide a detailed nutritional assessment using the following format:
+            1. **Identification**: List each identified food item clearly, one per line.
+            2. **Portion Size & Calorie Estimation**: For each identified food item, specify the portion size and provide an estimated number of calories. Use bullet points with the following structure:
+            - **[Food Item]**: [Portion Size], [Number of Calories] calories
+            Example:
+            *   **Salmon**: 6 ounces, 210 calories
+            *   **Asparagus**: 3 spears, 25 calories
+            3. **Total Calories**: Provide the total number of calories for all food items.
+            Example:
+            Total Calories: [Number of Calories]
+            4. **Nutrient Breakdown**: Include a breakdown of key nutrients such as **Protein**, **Carbohydrates**, **Fats**, **Vitamins**, and **Minerals**. Use bullet points, and for each nutrient provide details about the contribution of each food item.
+            Example:
+            *   **Protein**: Salmon (35g), Asparagus (3g), Tomatoes (1g) = [Total Protein]
+            5. **Health Evaluation**: Evaluate the healthiness of the meal in one paragraph.
+            6. **Disclaimer**: Include the following exact text as a disclaimer:
+            The nutritional information and calorie estimates provided are approximate and are based on general food data. 
+            Actual values may vary depending on factors such as portion size, specific ingredients, preparation methods, and individual variations. 
+            For precise dietary advice or medical guidance, consult a qualified nutritionist or healthcare provider.
+            Format your response exactly like the template above to ensure consistency.
+            """
+
+    
+    @staticmethod
+    def create_nutrition_summary_prompt(prompt: str, encoded_image: str, media_type: str) -> list:
+        """Create a prompt for summarizing nutritional information."""
+        nutrition_prompt = NutritionistPromptTemplate.create_nutrition_analysis_prompt_assisstent()
+        messages = [{
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text":  nutrition_prompt + " " + prompt
+                },
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": media_type,
+                        "data": encoded_image
+                    }
+                }
+            ]
+        }]
+
+        return messages
+
 if __name__ == "__main__":
     # Example usage
     print("Financial Prompt Template:")
@@ -162,6 +220,11 @@ if __name__ == "__main__":
         "Our ROA improved and the 401k business grew."
     )
     print(financial_prompt.template[:200] + "...")
+    
+    print("\n\nNutrition Prompt Template:")
+    print("-" * 60)
+    nutrition_prompt = NutritionistPromptTemplate.create_nutrition_analysis_prompt_assisstent()
+    print(nutrition_prompt[:200] + "...")
     
     print("\n\nMeeting Minutes Prompt Template:")
     print("-" * 60)
