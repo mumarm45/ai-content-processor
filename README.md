@@ -239,10 +239,15 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Faster-Whisper GitHub](https://github.com/SYSTRAN/faster-whisper)
 - [Gradio Documentation](https://www.gradio.app/docs/)
 - [LangChain Documentation](https://python.langchain.com/)
+- [ChromaDB Documentation](https://www.trychroma.com/)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [Python-dotenv Documentation](https://github.com/theskumar/python-dotenv)
+- [HuggingFace Documentation](https://huggingface.co/)
+- [SentenceTransformers Documentation](https://www.sbert.net/)
 
 ---
 
-**Made with ❤️ using Claude, Whisper, and Gradio**
+**Made with ❤️ using Anthropic, Whisper, HuggingFace, LangChain, ChromaDB, Flask, Python-dotenv, Gradio**
 
 
 
