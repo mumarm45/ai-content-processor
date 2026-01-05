@@ -207,12 +207,6 @@ This project uses Gradio 6.2.0+. The code has been updated to be compatible with
 - **sentence-transformers** (>=2.2.2): Text embedding
 - **huggingface-hub** (>=0.33.5): HuggingFace integration
 
-### System Requirements
-- **Memory**: Minimum 4GB RAM (8GB+ recommended for larger Whisper models)
-- **Storage**: ~1-5GB for model files (depending on Whisper model size)
-- **CPU**: Multi-core processor recommended
-- **GPU**: Optional but recommended for faster transcription
-
 ## 🌟 Whisper Model Sizes
 
 Choose based on your needs:
