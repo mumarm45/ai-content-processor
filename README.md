@@ -209,15 +209,7 @@ This project uses Gradio 6.2.0+. The code has been updated to be compatible with
 
 ## 🌟 Whisper Model Sizes
 
-Choose based on your needs:
-
-| Model | Size | Speed | Accuracy | Use Case |
-|-------|------|-------|----------|----------|
-| tiny.en | ~75MB | ⚡⚡⚡⚡ | ⭐⭐ | Quick tests, demos |
-| base.en | ~150MB | ⚡⚡⚡ | ⭐⭐⭐ | General use |
-| small.en | ~500MB | ⚡⚡ | ⭐⭐⭐⭐ | Recommended |
-| medium.en | ~1.5GB | ⚡ | ⭐⭐⭐⭐⭐ | High accuracy |
-| large-v3 | ~3GB | ⚡ | ⭐⭐⭐⭐⭐ | Best quality |
+Choose based on your needs: (Default: small.en, tiny.en, base.en, medium.en, large-v3)
 
 ## 🤝 Contributing
 
