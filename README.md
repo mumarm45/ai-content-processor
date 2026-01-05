@@ -25,6 +25,11 @@ A powerful AI-powered application that processes audio, images, and text using s
 - AI-powered text analysis and summarization
 - Professional formatting with key points, action items, and decisions
 
+### 📝 Webpage Q&A
+- Generate structured meeting minutes from transcripts
+- AI-powered text analysis and summarization
+- Professional formatting with key points, action items, and decisions
+
 ### 📊 Nutrition Analysis
 - Analyze food items in images
 - Provide detailed nutritional information
@@ -104,15 +109,19 @@ Start the web application:
 ```bash
 python src/web/app.py
 ```
-
 Then open your browser to `http://localhost:5500`
+or
+```bash
+python src/web/api.py
+```
+Then open your browser to `http://localhost:5400/api`
 
 The interface provides four main features:
 - **Audio Transcription**: Upload audio files and get instant transcriptions
 - **Image Analysis**: Upload images for text extraction and analysis
 - **Meeting Minutes**: Paste transcripts to generate structured minutes
 - **Nutrition Analysis**: Upload food images to get nutritional information
-
+- **Webpage Q&A**: Upload webpages to generate structured minutes
 
 ### First Run
 
@@ -126,7 +135,7 @@ ai-content-processor/
 │   ├── config/          # Configuration and settings
 │   ├── core/            # Core business logic
 │   ├── services/        # AI services (Audio, Image, Document, Nutrition)
-│   └── web/             # Gradio web interface
+│   └── web/             # Gradio web interface, Flask API
 ├── scripts/             # Utility scripts
 ├── tests/               # Test files
 ├── data/                # Data files (gitignored)
@@ -193,6 +202,10 @@ This project uses Gradio 6.2.0+. The code has been updated to be compatible with
 - **langchain** (>=0.3.0): LLM orchestration
 - **pillow** (>=10.0.0): Image processing
 - **torch** (>=2.2.0): ML framework
+- **chromadb** (>=0.5.0): Vector database
+- **python-dotenv** (>=1.0.0): Environment variables
+- **sentence-transformers** (>=2.2.2): Text embedding
+- **huggingface-hub** (>=0.33.5): HuggingFace integration
 
 ### System Requirements
 - **Memory**: Minimum 4GB RAM (8GB+ recommended for larger Whisper models)
